@@ -441,10 +441,6 @@
 									"",
 									"pm.test('should return a 403 status code', () => {",
 									"    pm.response.to.have.status(403);",
-									"});",
-									"",
-									"pm.test('should return the following schema', () => {",
-									"    pm.response.to.have.jsonSchema(schema);",
 									"});"
 								],
 								"type": "text/javascript"
