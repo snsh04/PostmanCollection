@@ -1,0 +1,11 @@
+# Install node 
+- name: Install Node
+  uses: actions/setup-node@v1
+  with:
+    node-version: "12.x"
+
+# Install newman 
+-name: Install newman
+  run: |
+    npm install -g newman
+    npm install -g newman-reporter-htmlextra    

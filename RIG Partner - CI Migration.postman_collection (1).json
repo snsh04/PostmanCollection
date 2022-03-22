@@ -1,0 +1,673 @@
+{
+	"info": {
+		"_postman_id": "1989463d-319d-4364-8d3e-14b24e9da4fb",
+		"name": "RIG Partner - CI Migration",
+		"description": "Contains a full collection of RIG Web API endpoints that have been overridden for each environment.\n\nExecuted as part of CI/CD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Token - Happy Path",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"http://example.com/example.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"The root schema\",",
+									"    \"description\": \"The root schema comprises the entire JSON document.\",",
+									"    \"default\": {},",
+									"    \"examples\": [",
+									"        {",
+									"            \"access_token\": \"8bda0f02-0aca-3699-b949-5b888c5d9497\",",
+									"            \"scope\": \"am_application_scope default\",",
+									"            \"token_type\": \"Bearer\",",
+									"            \"expires_in\": 3600",
+									"        }",
+									"    ],",
+									"    \"required\": [",
+									"        \"access_token\",",
+									"        \"scope\",",
+									"        \"token_type\",",
+									"        \"expires_in\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"access_token\": {",
+									"            \"$id\": \"#/properties/access_token\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The access_token schema\",",
+									"            \"description\": \"An explanation about the purpose of this instance.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"8bda0f02-0aca-3699-b949-5b888c5d9497\"",
+									"            ]",
+									"        },",
+									"        \"scope\": {",
+									"            \"$id\": \"#/properties/scope\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The scope schema\",",
+									"            \"description\": \"An explanation about the purpose of this instance.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"am_application_scope default\"",
+									"            ]",
+									"        },",
+									"        \"token_type\": {",
+									"            \"$id\": \"#/properties/token_type\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The token_type schema\",",
+									"            \"description\": \"An explanation about the purpose of this instance.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"Bearer\"",
+									"            ]",
+									"        },",
+									"        \"expires_in\": {",
+									"            \"$id\": \"#/properties/expires_in\",",
+									"            \"type\": \"integer\",",
+									"            \"title\": \"The expires_in schema\",",
+									"            \"description\": \"An explanation about the purpose of this instance.\",",
+									"            \"default\": 0,",
+									"            \"examples\": [",
+									"                3600",
+									"            ]",
+									"        }",
+									"    },",
+									"    \"additionalProperties\": true",
+									"};",
+									"",
+									"pm.test('should return a 200 status code', () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('should return the following schema', () => {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									"",
+									"pm.test('Verify endpoint is migrated', () => {",
+									"  pm.response.to.have.header(\"X-Neo\");",
+									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{rigBearerToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{rigPartnerEnv}}/token",
+							"host": [
+								"{{rigPartnerEnv}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token - Missing Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"http://example.com/example.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"The root schema\",",
+									"    \"description\": \"The root schema comprises the entire JSON document.\",",
+									"    \"default\": {},",
+									"    \"examples\": [",
+									"        {",
+									"            \"error_description\": \"Missing parameters: client_secret client_id\",",
+									"            \"error\": \"invalid_request\"",
+									"        }",
+									"    ],",
+									"    \"required\": [",
+									"        \"error_description\",",
+									"        \"error\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"error_description\": {",
+									"            \"$id\": \"#/properties/error_description\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The error_description schema\",",
+									"            \"description\": \"An explanation about the purpose of this instance.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"Missing parameters: client_secret client_id\"",
+									"            ]",
+									"        },",
+									"        \"error\": {",
+									"            \"$id\": \"#/properties/error\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The error schema\",",
+									"            \"description\": \"An explanation about the purpose of this instance.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"invalid_request\"",
+									"            ]",
+									"        }",
+									"    },",
+									"    \"additionalProperties\": true",
+									"}",
+									"",
+									"pm.test('should return a 400 status code', () => {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test('should return the following schema', () => {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									"",
+									"pm.test('Verify endpoint is migrated', () => {",
+									"  pm.response.to.have.header(\"X-Neo\");",
+									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rigPartnerEnv}}/token",
+							"host": [
+								"{{rigPartnerEnv}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token - Missing Body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {",
+									"    \"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"http://example.com/example.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"The root schema\",",
+									"    \"description\": \"The root schema comprises the entire JSON document.\",",
+									"    \"default\": {},",
+									"    \"examples\": [",
+									"        {",
+									"            \"error_description\": \"Missing parameters: client_secret client_id\",",
+									"            \"error\": \"invalid_request\"",
+									"        }",
+									"    ],",
+									"    \"required\": [",
+									"        \"error_description\",",
+									"        \"error\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"error_description\": {",
+									"            \"$id\": \"#/properties/error_description\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The error_description schema\",",
+									"            \"description\": \"An explanation about the purpose of this instance.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"Missing parameters: client_secret client_id\"",
+									"            ]",
+									"        },",
+									"        \"error\": {",
+									"            \"$id\": \"#/properties/error\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The error schema\",",
+									"            \"description\": \"An explanation about the purpose of this instance.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"invalid_request\"",
+									"            ]",
+									"        }",
+									"    },",
+									"    \"additionalProperties\": true",
+									"}",
+									"",
+									"pm.test('should return a 400 status code', () => {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test('should return the following schema', () => {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									"",
+									"pm.test('Verify endpoint is migrated', () => {",
+									"  pm.response.to.have.header(\"X-Neo\");",
+									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{rigBearerToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{rigPartnerEnv}}/token",
+							"host": [
+								"{{rigPartnerEnv}}"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authorizer",
+			"item": [
+				{
+					"name": "SecuredHealth - Happy Path",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {",
+									"\"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"http://example.com/example.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"The root schema\",",
+									"    \"description\": \"The root schema comprises the entire JSON document.\",",
+									"    \"default\": {},",
+									"    \"examples\": [",
+									"        {",
+									"            \"message\": \"This health resource is secured by RIG token\"",
+									"        }",
+									"    ],",
+									"    \"required\": [",
+									"        \"message\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"message\": {",
+									"            \"$id\": \"#/properties/message\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The message schema\",",
+									"            \"description\": \"Message from secured endpoint.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"This health resource is secured by RIG token\"",
+									"            ]",
+									"        }        ",
+									"    },",
+									"    \"additionalProperties\": true",
+									"};",
+									"",
+									"pm.test('should return a 200 status code', () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test('should return the following schema', () => {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									"",
+									"pm.test('Verify endpoint is migrated', () => {",
+									"  pm.response.to.have.header(\"X-Neo\");",
+									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const tokenUrl = pm.environment.get('rigPartnerEnv')  + '/token';",
+									"",
+									"const getTokenRequest = {",
+									"  method: 'POST',",
+									"  url: tokenUrl,",
+									"  header: 'Authorization: Basic ' + pm.environment.get('rigBearerToken'),",
+									"  body: {",
+									"    mode: 'urlencoded',",
+									"    urlencoded : [",
+									"      { key: 'grant_type', value: 'client_credentials'}",
+									"    ]",
+									"  }",
+									"};",
+									"",
+									"pm.request.headers.add({    ",
+									"    'Content-Type': 'application/x-www-form-urlencoded'",
+									"})",
+									"",
+									"pm.sendRequest(getTokenRequest, (err, response) => {",
+									"  const jsonResponse = response.json();",
+									"  const newAccessToken = jsonResponse.access_token;",
+									"  pm.variables.set('access_token', newAccessToken);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{rigPartnerEnv}}/securedhealth",
+							"host": [
+								"{{rigPartnerEnv}}"
+							],
+							"path": [
+								"securedhealth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SecuredHealth - Invalid Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {",
+									"\"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"http://example.com/example.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"The root schema\",",
+									"    \"description\": \"The root schema comprises the entire JSON document.\",",
+									"    \"default\": {},",
+									"    \"examples\": [",
+									"        {",
+									"            \"message\": \"This health resource is secured by RIG token\"",
+									"        }",
+									"    ],",
+									"    \"required\": [",
+									"        \"message\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"message\": {",
+									"            \"$id\": \"#/properties/message\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The message schema\",",
+									"            \"description\": \"Message from secured endpoint.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"This health resource is secured by RIG token\"",
+									"            ]",
+									"        }        ",
+									"    },",
+									"    \"additionalProperties\": true",
+									"};",
+									"",
+									"pm.test('should return a 403 status code', () => {",
+									"    pm.response.to.have.status(403);",
+									"});",
+									"",
+									"pm.test('should return the following schema', () => {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									"",
+									"pm.test('Verify endpoint is migrated', () => {",
+									"  pm.response.to.have.header(\"X-Neo\");",
+									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var uuid = require('uuid');",
+									"pm.variables.set('access_token', uuid.v4());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/xml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{rigPartnerEnv}}/securedhealth",
+							"host": [
+								"{{rigPartnerEnv}}"
+							],
+							"path": [
+								"securedhealth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SecuredHealth - Missing Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const schema = {",
+									"\"$schema\": \"http://json-schema.org/draft-07/schema\",",
+									"    \"$id\": \"http://example.com/example.json\",",
+									"    \"type\": \"object\",",
+									"    \"title\": \"The root schema\",",
+									"    \"description\": \"The root schema comprises the entire JSON document.\",",
+									"    \"default\": {},",
+									"    \"examples\": [",
+									"        {",
+									"            \"message\": \"This health resource is secured by RIG token\"",
+									"        }",
+									"    ],",
+									"    \"required\": [",
+									"        \"message\"",
+									"    ],",
+									"    \"properties\": {",
+									"        \"message\": {",
+									"            \"$id\": \"#/properties/message\",",
+									"            \"type\": \"string\",",
+									"            \"title\": \"The message schema\",",
+									"            \"description\": \"Message from secured endpoint.\",",
+									"            \"default\": \"\",",
+									"            \"examples\": [",
+									"                \"This health resource is secured by RIG token\"",
+									"            ]",
+									"        }        ",
+									"    },",
+									"    \"additionalProperties\": true",
+									"};",
+									"",
+									"pm.test('should return a 401 status code', () => {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test('should return the following schema', () => {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									"",
+									"pm.test('Verify endpoint is migrated', () => {",
+									"  pm.response.to.have.header(\"X-Neo\");",
+									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.variables.set('access_token', undefined);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/xml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{rigPartnerEnv}}/securedhealth",
+							"host": [
+								"{{rigPartnerEnv}}"
+							],
+							"path": [
+								"securedhealth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 202', () => {",
+							"  pm.response.to.have.status(202);",
+							"});",
+							"",
+							"pm.test('Empty body', () => {",
+							"  pm.response.to.not.have.body;",
+							"});",
+							"",
+							"pm.test('Verify endpoint is migrated', () => {",
+							"  pm.response.to.have.header(\"X-Neo\");",
+							"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{rigPartnerEnv}}/health",
+					"host": [
+						"{{rigPartnerEnv}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
