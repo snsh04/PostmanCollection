@@ -88,13 +88,7 @@
 									"",
 									"pm.test('should return the following schema', () => {",
 									"    pm.response.to.have.jsonSchema(schema);",
-									"});",
-									"",
-									"pm.test('Verify endpoint is migrated', () => {",
-									"  pm.response.to.have.header(\"X-Neo\");",
-									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
-									"});",
-									""
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -186,14 +180,7 @@
 									"",
 									"pm.test('should return the following schema', () => {",
 									"    pm.response.to.have.jsonSchema(schema);",
-									"});",
-									"",
-									"pm.test('Verify endpoint is migrated', () => {",
-									"  pm.response.to.have.header(\"X-Neo\");",
-									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
-									"});",
-									"",
-									""
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -269,11 +256,6 @@
 									"",
 									"pm.test('should return the following schema', () => {",
 									"    pm.response.to.have.jsonSchema(schema);",
-									"});",
-									"",
-									"pm.test('Verify endpoint is migrated', () => {",
-									"  pm.response.to.have.header(\"X-Neo\");",
-									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -349,11 +331,6 @@
 									"",
 									"pm.test('should return the following schema', () => {",
 									"    pm.response.to.have.jsonSchema(schema);",
-									"});",
-									"",
-									"pm.test('Verify endpoint is migrated', () => {",
-									"  pm.response.to.have.header(\"X-Neo\");",
-									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -468,11 +445,6 @@
 									"",
 									"pm.test('should return the following schema', () => {",
 									"    pm.response.to.have.jsonSchema(schema);",
-									"});",
-									"",
-									"pm.test('Verify endpoint is migrated', () => {",
-									"  pm.response.to.have.header(\"X-Neo\");",
-									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -570,11 +542,6 @@
 									"",
 									"pm.test('should return the following schema', () => {",
 									"    pm.response.to.have.jsonSchema(schema);",
-									"});",
-									"",
-									"pm.test('Verify endpoint is migrated', () => {",
-									"  pm.response.to.have.header(\"X-Neo\");",
-									"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -643,11 +610,6 @@
 							"",
 							"pm.test('Empty body', () => {",
 							"  pm.response.to.not.have.body;",
-							"});",
-							"",
-							"pm.test('Verify endpoint is migrated', () => {",
-							"  pm.response.to.have.header(\"X-Neo\");",
-							"  pm.response.to.be.header(\"X-Neo\", \"Migrated Endpoint\");",
 							"});"
 						],
 						"type": "text/javascript"
