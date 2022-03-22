@@ -30,9 +30,4 @@ jobs:
         run: |
             newman run "RIG Partner - CI Migration.postman_collection (1).json" -e "RIG PARTNER DEV - CI.postman_environment.json"
 
-      - name: Output
-        uses: actions/upload-artifacts@v2
-        with: 
-          name: RunReports
-          path: ContractTestResults  
              
